@@ -10,7 +10,7 @@ const generateAccessToken = (id, nickname)=>{
         nickname
     }
     console.log("process.env.SECRET======",process.env.SECRET);
-    return jwt.sign(payload, process.env.SECRET, {expiresIn: "30m"});
+    return jwt.sign(payload, process.env.SECRET, {expiresIn: '30m'});
 }
 
 class AuthController {
