@@ -3,12 +3,12 @@ const router = new Router();
 const {tagController} = require('../controllers/controllers');
 
 
-router.post('/tag', tagController.createTag);
-router.get('/tag', tagController.getTagsByUser);
-router.get('/tags', tagController.getAllTags);
-router.get('/tag/:id', tagController.getOneTag);
-router.put('/tag', tagController.updateTag);
-router.delete('/tag/:id', tagController.deleteTag);
+router.post('/tag', authMiddleware, tagController.createTag);
+router.get('/tag', authMiddleware, tagController.getTagsByUser);
+router.get('/tags', authMiddleware, tagController.getAllTags);
+router.get('/tag/:id', authMiddleware, tagController.getOneTag);
+router.put('/tag', authMiddleware, tagController.updateTag);
+router.delete('/tag/:id', authMiddleware, tagController.deleteTag);
 
 
 module.exports = router;

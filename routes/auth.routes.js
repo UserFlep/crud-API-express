@@ -4,14 +4,14 @@ const {check} = require('express-validator');
 const {authController} = require('../controllers/controllers');
 
 router.post(
-    '/registration',
+    '/signin',
     [
         check("nickname", "Username cannot be empty").notEmpty(),
         check("password", "Password must be more than 4 and less than 30 characters").isStrongPassword({minSymbols: 0}),
     ],
     authController.registration
 );
-router.post('/signin', authController.signin);
+router.post('/login', authController.login);
 
 
 module.exports = router;

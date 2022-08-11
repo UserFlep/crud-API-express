@@ -20,7 +20,9 @@ class AuthController {
             if(!errors.isEmpty()){
                 return res.status(400).json({message: "Validation error", ...errors});
             }
+
             const {email, password, nickname} = req.body;
+            
             const identicalNicknames = await db.query('SELECT * FROM users WHERE nickname=$1',[nickname]);
             if(identicalNicknames.rowCount){
                 return res.status(400).json({message: "Nickname is exists"});
@@ -39,7 +41,7 @@ class AuthController {
         }
     }
 
-    async signin (req, res) {
+    async login (req, res) {
         try {
             const {password, nickname} = req.body;
             const user = await db.query('SELECT * FROM users WHERE nickname=$1', [nickname]);
