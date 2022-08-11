@@ -39,7 +39,7 @@ class AuthController {
         }
     }
 
-    async login (req, res) {
+    async signin (req, res) {
         try {
             const {password, nickname} = req.body;
             const user = await db.query('SELECT * FROM users WHERE nickname=$1', [nickname]);

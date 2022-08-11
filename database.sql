@@ -12,6 +12,6 @@ CREATE TABLE tags
     id SERIAL PRIMARY KEY,
     name character varying(40) NOT NULL,
     creator uuid NOT NULL,
-    "sortOrder" integer DEFAULT 0,
+    sort_order integer DEFAULT 0,
     FOREIGN KEY (creator) REFERENCES users (uid)
 );
