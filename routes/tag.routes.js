@@ -1,7 +1,7 @@
 const Router = require('express');
 const router = new Router();
 const {tagController} = require('../controllers/controllers');
-
+const authMiddleware = require('../middleware/authMiddleware');
 
 router.post('/tag', authMiddleware, tagController.createTag);
 router.get('/tag', authMiddleware, tagController.getTagsByUser);
