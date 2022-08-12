@@ -30,18 +30,6 @@ class TagController {
         }
     }
 
-    async getAllTags(req, res){
-        try {
-            const tags = await db.query(
-                'SELECT * FROM tags'
-            );
-            res.status(200).json(tags.rows);
-        } catch (error) {
-            console.log(error)
-            res.status(400).json({message: "Get all tags error"});
-        }
-    }
-
     async getOneTag(req, res){
         try {
             const id = req.params.id;

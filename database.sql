@@ -1,15 +1,15 @@
 CREATE TABLE IF NOT EXISTS users
 (
     uid uuid DEFAULT uuid_generate_v4() PRIMARY KEY,
-    nickname character varying(30) UNIQUE NOT NULL,
-    password character varying(40) NOT NULL,
-    email character varying(40) UNIQUE NOT NULL
+    nickname varchar UNIQUE NOT NULL,
+    password varchar NOT NULL,
+    email varchar UNIQUE NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS tags
 (
     id SERIAL PRIMARY KEY,
-    name character varying(40) UNIQUE NOT NULL,
+    name varchar UNIQUE NOT NULL,
     creator uuid NOT NULL,
     sort_order integer DEFAULT 0,
     FOREIGN KEY (creator) REFERENCES users (uid)
@@ -27,6 +27,6 @@ CREATE TABLE IF NOT EXISTS user_tags
 CREATE TABLE IF NOT EXISTS tokens
 (
     user_id uuid NOT NULL,
-    token character varying(40) NOT NULL,
+    token varchar NOT NULL,
     FOREIGN KEY (user_id) REFERENCES users (uid)
 );

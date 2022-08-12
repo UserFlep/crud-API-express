@@ -4,19 +4,7 @@ const bcrypt = require("bcryptjs");
 const {validationResult} = require("express-validator");
 const jwt = require("jsonwebtoken");
 
-const generateAccessToken = (id, nickname)=>{
-    const expire = 1800; //30 мин
-    const payload = {
-        id,
-        nickname
-    }
-    
-    //console.log("process.env.SECRET======",process.env.SECRET);
-    return {
-        token: jwt.sign(payload, process.env.SECRET, {expiresIn: expire}),
-        expire
-    };
-}
+const userService = require("../serices/user-service");
 
 class AuthController {
     async registration (req, res) {
@@ -26,24 +14,16 @@ class AuthController {
                 return res.status(400).json({message: "Validation error", ...errors});
             }
 
-            const {email, password, nickname} = req.body;
+            const {email, nickname, password} = req.body;
             
-            const identicalNicknames = await db.query('SELECT * FROM users WHERE nickname=$1 or email=$2',[nickname,email]);
-            if(identicalNicknames.rowCount){
-                return res.status(400).json({message: "Nickname or email is exists"});
-            }
-            const hashPasword = bcrypt.hashSync(password,5);
-            const user = await db.query(
-                'INSERT INTO users (email, password, nickname) VALUES ($1,$2,$3) RETURNING uid, nickname'
-                , [email, hashPasword, nickname]
-            );
+            const tokens = await userService.registration(email, nickname, password);
+            res.cookie('refreshToken', tokens.refreshToken, {maxAge: tokens.refreshExpires, httpOnly: true});
 
-            const {token, expire} = generateAccessToken(user.rows[0].uid, user.rows[0].nickname);
-            return res.status(200).json({token, expire});
+            return res.status(200).json({...tokens});
 
         } catch (error) {
             console.log(error);
-            return res.status(400).json({message: "Registration error"});
+            return res.status(400).json({message: "Registration error", error});
         }
     }
 
