@@ -1,5 +1,7 @@
 require('dotenv').config();
 const jwt = require("jsonwebtoken");
+const ApiError = require("../exceptions/api-error");
+const tokenService = require('../serices/token-service');
 
 module.exports = function (req, res, next) {
     if(req.method === "OPTIONS") {
@@ -7,15 +9,22 @@ module.exports = function (req, res, next) {
     }
 
     try {
-        const token = req.headers.authorization.split(' ')[1]
-        if(!token) {
-            res.status(403).json({message: "User not authorized"});
+        if(!req.headers.authorization){
+            return next(ApiError.UnauthorizedError());
         }
-        const decodedData = jwt.verify(token, process.env.SECRET);
-        req.user = decodedData;
+
+        const accessToken = req.headers.authorization.split(' ')[1]
+        if(!accessToken) {
+            return next(ApiError.UnauthorizedError());
+        }
+        const userData = tokenService.validateAccessToken(accessToken);
+        if(!userData){
+            return next(ApiError.UnauthorizedError());
+        }
+        req.user = userData;
         next();
     } catch (error) {
-        console.log(error)
-        return res.status(403).json({message: "User not authorized"});
+        //console.log(error)
+        return next(ApiError.UnauthorizedError());
     }
 }

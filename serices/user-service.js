@@ -21,6 +21,48 @@ class UserService {
         return tokens;
     }
 
+    async login(email, password){
+        const user = await db.query('SELECT * FROM users WHERE email=$1', [email]);
+        if(!user.rowCount){
+            throw ApiError.BadRequest("Пользователь с таким email не найден");
+        }
+        const isPassEquals = bcrypt.compareSync(password, user.rows[0].password);
+        if(!isPassEquals){
+            throw ApiError.BadRequest("Неверный пароль");
+        }
+
+        const userDto = new UserDto(user.rows[0]); //uid, email, nickname
+        const tokens = tokenService.generateToken({...userDto});
+        
+        await tokenService.saveToken(userDto.uid, tokens.refreshToken);
+
+        return tokens;
+    }
+
+    async logout (refreshToken) {
+        const removedCount = await tokenService.removeToken(refreshToken);
+        return removedCount;
+    }
+
+    async refresh (refreshToken) {
+        if(!refreshToken){
+            throw ApiError.UnauthorizedError();
+        }
+        const userData = tokenService.validateRefreshToken(refreshToken);
+        const tokenFromDb = await tokenService.findToken(refreshToken);
+        if(!userData || !tokenFromDb){
+            throw ApiError.UnauthorizedError();
+        }
+
+        const user = await db.query('SELECT * FROM users WHERE uid=$1', [userData.uid]);
+        const userDto = new UserDto(user.rows[0]); //uid, email, nickname
+        const tokens = tokenService.generateToken({...userDto});
+        
+        await tokenService.saveToken(userDto.uid, tokens.refreshToken);
+
+        return tokens;
+    }
+
 }
 
 module.exports = new UserService();

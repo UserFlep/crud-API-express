@@ -1,8 +1,5 @@
 require('dotenv').config();
-const db = require("../db");
-const bcrypt = require("bcryptjs");
 const {validationResult} = require("express-validator");
-const jwt = require("jsonwebtoken");
 const userService = require("../serices/user-service");
 const ApiError = require("../exceptions/api-error");
 
@@ -27,36 +24,36 @@ class AuthController {
         }
     }
 
-    async login (req, res) {
+    async login (req, res, next) {
         try {
-            const {password, email} = req.body;
-            const user = await db.query('SELECT * FROM users WHERE email=$1', [email]);
-            if(!user.rowCount){
-                return res.status(400).json({message: "Email is not exists"});
-            }
-            const validPassword = bcrypt.compareSync(password, user.rows[0].password);
-            if(!validPassword){
-                return res.status(400).json({message: "Invalid password"});
-            }
-            const {token, expire} = generateAccessToken(user.rows[0].uid, user.rows[0].nickname);
-
-            return res.status(200).json({token, expire});
+            const {email, password} = req.body;
+            const tokens = await userService.login(email, password);
+            res.cookie('refreshToken', tokens.refreshToken, {maxAge: tokens.refreshExpires, httpOnly: true});
+            return res.status(200).json({...tokens});
         } catch (error) {
             //console.log(error);
             next(error)
         }
     }
 
-    async logout (req, res){
+    async logout (req, res, next){
         try {
+            const {refreshToken} = req.cookies;
+            const removedCount = await userService.logout(refreshToken);
+            res.clearCookie('refreshToken');
+            return res.status(200).json({removedCount});
         } catch (error) {
             //console.log(error);
             next(error)
         }
     }
 
-    async refresh (req, res) {
+    async refresh (req, res, next) {
         try {
+            const {refreshToken} = req.cookies;
+            const tokens = await userService.refresh(refreshToken);
+            res.cookie('refreshToken', tokens.refreshToken, {maxAge: tokens.refreshExpires, httpOnly: true});
+            return res.status(200).json({...tokens});
         } catch (error) {
             //console.log(error);
             next(error)
