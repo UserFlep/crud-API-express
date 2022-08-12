@@ -1,19 +1,22 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
-const {apiRouter, authRouter} = require('./routes/routes');
+const cookieParser = require('cookie-parser');
+const router = require('./routes');
 const db = require("./db");
+
 const PORT = process.env.PORT || 4000;
 
 const app = express();
-app.use(cors());
 app.use(express.json());
-app.use('/api', apiRouter);
-app.use('/auth', authRouter);
+app.use(cookieParser());
+app.use(cors());
 
-const start = () => {
+app.use('/api', router);
+
+const start = async () => {
     try {
-        app.listen(PORT, ()=>{console.log(`server started on port ${PORT}`)});
+        app.listen(PORT, ()=>console.log(`Server started on port ${PORT}`));
     } 
     catch (error) {
         console.log(error)

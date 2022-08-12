@@ -80,6 +80,14 @@ class AuthController {
             res.end()
         }
     }
+
+    async refresh (req, res) {
+        try {
+        } catch (error) {
+            console.log(error);
+            res.status(400).json({message: "Log in error"});
+        }
+    }
 }
 
 module.exports = new AuthController();

@@ -1,17 +1,6 @@
 const db = require("../db");
-class UserController {
 
-    async getAllUsers(req, res){
-        try {
-            const users = await db.query(
-                'SELECT * FROM users'
-            );
-            res.status(200).json(users.rows);
-        } catch (error) {
-            console.log(error)
-            res.status(400).json({message: "Get all users error"});
-        }
-    }
+class UserController {
 
     async getOneUser(req, res){
         try {
