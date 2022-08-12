@@ -3,15 +3,15 @@ const db = require("../db");
 const bcrypt = require("bcryptjs");
 const {validationResult} = require("express-validator");
 const jwt = require("jsonwebtoken");
-
 const userService = require("../serices/user-service");
+const ApiError = require("../exceptions/api-error");
 
 class AuthController {
-    async registration (req, res) {
+    async registration (req, res, next) {
         try {
             const errors = validationResult(req);
             if(!errors.isEmpty()){
-                return res.status(400).json({message: "Validation error", ...errors});
+                return next(ApiError.BadRequest("Ошибка при валидации", errors.array()));
             }
 
             const {email, nickname, password} = req.body;
@@ -22,8 +22,8 @@ class AuthController {
             return res.status(200).json({...tokens});
 
         } catch (error) {
-            console.log(error);
-            return res.status(400).json({message: "Registration error", error});
+            //console.log(error);
+            next(error)
         }
     }
 
@@ -42,30 +42,24 @@ class AuthController {
 
             return res.status(200).json({token, expire});
         } catch (error) {
-            console.log(error);
-            res.status(400).json({message: "Log in error"});
+            //console.log(error);
+            next(error)
         }
     }
 
     async logout (req, res){
-        if (req.session) {
-            req.session.destroy(err => {
-              if (err) {
-                return res.status(400).json({message: "Log out error"})
-              } else {
-                return res.status(200).json({message: "Logout successful"});
-              }
-            });
-        } else {
-            res.end()
+        try {
+        } catch (error) {
+            //console.log(error);
+            next(error)
         }
     }
 
     async refresh (req, res) {
         try {
         } catch (error) {
-            console.log(error);
-            res.status(400).json({message: "Log in error"});
+            //console.log(error);
+            next(error)
         }
     }
 }
