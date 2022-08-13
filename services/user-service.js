@@ -82,6 +82,12 @@ class UserService {
 
     async updateUser (accessToken, newUserData) {
         const {email, password, nickname} = newUserData;
+        
+        const candidate = await db.query('SELECT * FROM users WHERE nickname=$1 or email=$2',[nickname,email]);
+        if(candidate.rowCount) {
+            throw ApiError.BadRequest("Пользователь с таким никнеймом или адресом почты уже существует");
+        }
+        
         const tokenPayload = tokenService.validateAccessToken(accessToken);
         const hashPasword = await bcrypt.hash(password,3);
         const user = await db.query(
