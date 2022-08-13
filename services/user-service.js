@@ -1,15 +1,19 @@
 const db = require("../db");
 const bcrypt = require("bcryptjs");
 const tokenService = require("../services/token-service");
-const UserDto = require("../dtos/user-dto");
+const ApiError = require("../exceptions/api-error");
 
 class UserService {
 
     async #getTokensFromTokenService(userModel){
-        const userDto = new UserDto(userModel); //uid, email, nickname
-        const tokens = tokenService.generateToken({...userDto});
+        const tokenPayload = {
+            uid: userModel.uid,
+            email: userModel.email,
+            nickname: userModel.nickname
+        }
+        const tokens = tokenService.generateToken({...tokenPayload});
         
-        await tokenService.saveToken(userDto.uid, tokens.refreshToken);
+        await tokenService.saveToken(tokenPayload.uid, tokens.refreshToken);
 
         return tokens;
     }
