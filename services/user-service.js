@@ -7,6 +7,7 @@ class UserService {
         const tokenPayload = tokenService.validateAccessToken(accessToken);
 
         const user = await db.query('SELECT email, nickname FROM users WHERE uid=$1', [tokenPayload.uid]);
+
         const query = `
             WITH user_tags_data AS(
                 SELECT * FROM user_tags WHERE user_id=$1
