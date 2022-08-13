@@ -92,6 +92,9 @@ class UserController {
     
     async removeUser(req, res, next){
         try {
+            const {refreshToken} = req.cookies;
+            await userService.logout(refreshToken);
+            
             const accessToken = req.headers.authorization.split(' ')[1];
             const removedCount = await userService.removeUser(accessToken);
             res.status(200).json({removedCount});
