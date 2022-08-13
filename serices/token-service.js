@@ -5,7 +5,7 @@ const db = require("../db");
 class TokenService {
     generateToken(payload){
         const accessExpires = 30 * 60; //30 мин
-        const refreshExpires = 30 * 24 * 60 * 60; //30 дней
+        const refreshExpires = 2 * 24 * 60 * 60; //2 дня
         const accessToken = jwt.sign(payload, process.env.JWT_ACCESS_SECRET, {expiresIn: accessExpires});
         const refreshToken = jwt.sign(payload, process.env.JWT_REFRESH_SECRET, {expiresIn: refreshExpires});
         return {
