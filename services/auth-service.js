@@ -4,7 +4,7 @@ const tokenService = require("./token-service");
 const UserDto = require("../dtos/user-dto");
 const ApiError = require("../exceptions/api-error");
 
-class UserService {
+class AuthService {
 
     async #getTokensFromTokenService(userModel){
         const userDto = new UserDto(userModel); //uid, email, nickname
@@ -34,7 +34,7 @@ class UserService {
             throw ApiError.BadRequest("Пользователь с таким email не найден");
         }
 
-        const isPassEquals = bcrypt.compareSync(password, user.rows[0].password);
+        const isPassEquals = await bcrypt.compare(password, user.rows[0].password);
         if(!isPassEquals){
             throw ApiError.BadRequest("Неверный пароль");
         }
@@ -67,4 +67,4 @@ class UserService {
 
 }
 
-module.exports = new UserService();
+module.exports = new AuthService();

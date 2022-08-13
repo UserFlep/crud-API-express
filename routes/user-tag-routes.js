@@ -1,5 +1,5 @@
 const Router = require('express');
-const router = new Router();uire('../middleware/authMiddleware');
+const router = new Router();uire('../middleware/auth-middleware');
 
 router.post('user/tag');
 router.delete('user/tag/:id');

@@ -1,15 +1,13 @@
 const db = require("../db");
+const userService = require("../services/user-service");
 
 class UserController {
 
     async getOneUser(req, res){
         try {
-            const id = req.params.id;
-            const user = await db.query(
-                'SELECT * FROM users WHERE uid=$1'
-                , [id]
-            );
-            res.status(200).json(user.rows[0]);
+            const accessToken = req.headers.authorization.split(' ')[1];
+            const userData = await userService.getOneUser(accessToken);
+            res.status(200).json(userData);
         } catch (error) {
             console.log(error)
             res.status(400).json({message: "Get one user error"});
