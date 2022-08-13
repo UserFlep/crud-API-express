@@ -1,9 +1,9 @@
 const userRouter = require("./user-routes");
 const tagRouter = require("./tag-routes");
-const authRouter = require("./auth-routes");
+const userTagRouter = require("./user-tag-routes");
 
 module.exports = [
-    authRouter,
     userRouter, 
-    tagRouter
+    tagRouter,
+    userTagRouter
 ]

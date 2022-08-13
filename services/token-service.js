@@ -52,7 +52,7 @@ class TokenService {
 
     async findToken(refreshToken){
         const queryData = await db.query("SELECT * from tokens WHERE token=$1",[refreshToken]);
-        return queryData.rows[0];
+        return queryData.rowCount;
     }
 
 }
