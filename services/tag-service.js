@@ -19,7 +19,7 @@ class TagService {
     async getOneTag(tagId){
         const tag = await db.query('SELECT creator, name, "sortOrder" FROM tags WHERE id=$1',[tagId])
         if(!tag.rowCount) {
-            throw ApiError.BadRequest("Тега с таким id не существует");
+            throw ApiError.BadRequest("Не существует тега с таким id");
         }
         const creator = await db.query("SELECT uid, nickname FROM users WHERE uid=$1",[tag.rows[0].creator])
         tag.rows[0].creator = creator.rows[0];
