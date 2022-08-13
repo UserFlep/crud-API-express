@@ -48,13 +48,13 @@ class UserService {
         if(!refreshToken){
             throw ApiError.UnauthorizedError();
         }
-        const userData = tokenService.validateRefreshToken(refreshToken);
+        const tokenPayload = tokenService.validateRefreshToken(refreshToken);
         const tokenFromDb = await tokenService.findToken(refreshToken);
-        if(!userData || !tokenFromDb){
+        if(!tokenPayload || !tokenFromDb){
             throw ApiError.UnauthorizedError();
         }
 
-        const user = await db.query('SELECT * FROM users WHERE uid=$1', [userData.uid]);
+        const user = await db.query('SELECT * FROM users WHERE uid=$1', [tokenFromDb.user_id]);
         const userDto = new UserDto(user.rows[0]); //uid, email, nickname
         const tokens = tokenService.generateToken({...userDto});
         

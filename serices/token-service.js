@@ -18,8 +18,8 @@ class TokenService {
 
     validateAccessToken(token){
         try {
-            const userData = jwt.verify(token, process.env.JWT_ACCESS_SECRET);
-            return userData;
+            const tokenPayload = jwt.verify(token, process.env.JWT_ACCESS_SECRET);
+            return tokenPayload;
         } catch (error) {
             return null;
         }
@@ -27,8 +27,8 @@ class TokenService {
 
     validateRefreshToken(token){
         try {
-            const userData = jwt.verify(token, process.env.JWT_REFRESH_SECRET);
-            return userData;
+            const tokenPayload = jwt.verify(token, process.env.JWT_REFRESH_SECRET);
+            return tokenPayload;
         } catch (error) {
             return null;
         }
@@ -52,7 +52,7 @@ class TokenService {
 
     async findToken(refreshToken){
         const queryData = await db.query("SELECT * from tokens WHERE token=$1",[refreshToken]);
-        return queryData.rowCount;
+        return queryData.rows[0];
     }
 
 }
