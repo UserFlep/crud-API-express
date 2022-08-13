@@ -1,5 +1,3 @@
-require('dotenv').config();
-const jwt = require("jsonwebtoken");
 const ApiError = require("../exceptions/api-error");
 const tokenService = require('../services/token-service');
 
