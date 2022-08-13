@@ -26,6 +26,26 @@ class TagService {
         return tag.rows[0];
     }
 
+    async getAllTags(length, offset, sortByOrder, sortByName){
+        let ORDER_BY="";
+        const LIMIT = length === undefined ? "" :"LIMIT "+length;
+        const OFFSET = offset === undefined ? "" :"OFFSET "+offset;
+        //console.log(length && "ALL", offset && "0"); 'это успех
+        const sortFields = [];
+        if(sortByOrder!==undefined){
+            sortFields.push('"sortOrder"');
+        }
+        if(sortByName!==undefined){
+            sortFields.push("name");
+        }
+        if(sortFields.length>0){
+            ORDER_BY = "ORDER BY " + sortFields.join(', ');
+        }
+        //const tags = await db.query(`SELECT * FROM tags LIMIT $1 OFFSET $2`);
+        const tags = await db.query(`SELECT * FROM tags ${ORDER_BY} ${LIMIT} ${OFFSET}`);
+        return tags.rows;
+    }
+
 
 }
 

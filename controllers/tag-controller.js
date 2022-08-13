@@ -37,6 +37,16 @@ class TagController {
         }
     }
 
+    async getAllTags(req, res, next){
+        try{
+            const {sortByOrder, sortByName, offset, length} = req.query;
+            const data = await tagService.getAllTags(length, offset, sortByOrder, sortByName);
+            res.status(200).json({data});
+        } catch (error) {
+            next(error)
+        }
+    }
+
     async getTagsByUser(req, res){
         try {
             const id = req.query.id;
