@@ -76,8 +76,25 @@ class UserService {
             SELECT id, name, sort_order FROM tag_data
         `;
         const tags = await db.query(query,[tokenPayload.uid])
-        user.rows[0].tags = tags.rows
-        return {...user.rows[0]}
+        user.rows[0].tags = tags.rows;
+        return user.rows[0];
+    }
+
+    async updateUser (accessToken, newUserData) {
+        const {email, password, nickname} = newUserData;
+        const tokenPayload = tokenService.validateAccessToken(accessToken);
+        const hashPasword = await bcrypt.hash(password,3);
+        const user = await db.query(
+            'UPDATE users set email=$1, password=$2, nickname=$3 WHERE uid=$4 RETURNING email, nickname'
+            , [email, hashPasword, nickname, tokenPayload.uid]
+        );
+        return user.rows[0];
+    }
+
+    async removeUser (accessToken) {
+        const tokenPayload = tokenService.validateAccessToken(accessToken);
+        const queryData = await db.query('DELETE FROM users WHERE uid=$1', [tokenPayload.uid]);
+        return queryData.rowCount;
     }
 }
 

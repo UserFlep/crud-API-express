@@ -68,7 +68,7 @@ class UserController {
         try {
             const accessToken = req.headers.authorization.split(' ')[1];
             const userData = await userService.getOneUser(accessToken);
-            res.status(200).json(userData);
+            res.status(200).json({...userData});
         } catch (error) {
             next(error);
         }
@@ -76,25 +76,26 @@ class UserController {
 
     async updateUser(req, res, next){
         try {
-            const {uid, email, password, nickname} = req.body;
-            const user = await db.query(
-                'UPDATE users set email=$1, password=$2, nickname=$3 WHERE uid=$4 RETURNING *'
-                , [email, password, nickname, uid]
-            );
-            res.status(200).json(user.rows[0]);
+            const errors = validationResult(req);
+            if(!errors.isEmpty()){
+                return next(ApiError.BadRequest("Ошибка при валидации", errors.array()));
+            }
+
+            const newUserData = req.body;
+            const accessToken = req.headers.authorization.split(' ')[1];
+            const updatedUserData = await userService.updateUser(accessToken, newUserData);
+            res.status(200).json({...updatedUserData});
         } catch (error) {
             next(error);
         }
     }
     
-    async deleteUser(req, res, next){
+    async removeUser(req, res, next){
         try {
-            const id = req.params.id;
-            const user = await db.query(
-                'DELETE FROM users WHERE uid=$1'
-                , [id]
-            );
-            res.status(200).json(`Deleted ${user.rowCount} row(-s)`);
+            const accessToken = req.headers.authorization.split(' ')[1];
+            const removedCount = await userService.removeUser(accessToken);
+            res.status(200).json({removedCount});
+
         } catch (error) {
             next(error);
         }

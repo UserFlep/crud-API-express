@@ -12,7 +12,7 @@ CREATE TABLE IF NOT EXISTS tags
     name varchar UNIQUE NOT NULL,
     creator uuid NOT NULL,
     sort_order integer DEFAULT 0,
-    FOREIGN KEY (creator) REFERENCES users (uid)
+    FOREIGN KEY (creator) REFERENCES users (uid) ON DELETE SET NULL
 );
 
 CREATE TABLE IF NOT EXISTS user_tags
@@ -21,12 +21,12 @@ CREATE TABLE IF NOT EXISTS user_tags
     tag_id integer NOT NULL,
     UNIQUE (user_id, tag_id),
     FOREIGN KEY (user_id) REFERENCES users (uid),
-    FOREIGN KEY (tag_id) REFERENCES tags (id)
+    FOREIGN KEY (tag_id) REFERENCES tags (id) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS tokens
 (
     user_id uuid NOT NULL,
     token varchar NOT NULL,
-    FOREIGN KEY (user_id) REFERENCES users (uid)
+    FOREIGN KEY (user_id) REFERENCES users (uid) ON DELETE CASCADE
 );
