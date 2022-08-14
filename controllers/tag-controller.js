@@ -81,7 +81,8 @@ class TagController {
     async deleteTag(req, res, next){
         try {
             const tagId = req.params.id;
-            const deletedCount = await tagService.deleteTag(tagId);
+            const accessToken = req.headers.authorization.split(' ')[1];
+            const deletedCount = await tagService.deleteTag(accessToken, tagId);
             res.status(200).json({deletedCount});
         } catch (error) {
             next(error)

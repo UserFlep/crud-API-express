@@ -92,7 +92,19 @@ class TagService {
         return updatedTag.rows[0];
     }
 
-    async deleteTag(tagId){
+    async deleteTag(accessToken, tagId){
+        const tokenPayload = tokenService.validateAccessToken(accessToken);
+        
+        const deletingTag = await db.query('SELECT * FROM tags WHERE id=$1 LIMIT 1',[tagId])
+        //Тег существует
+        if(!deletingTag.rowCount){
+            throw ApiError.BadRequest("Такого тега не существует");
+        }
+        //Тег можно удалить
+        if(deletingTag.rows[0].creator !== tokenPayload.uid){
+            throw ApiError.BadRequest("Только создатель тега может удалить его");
+        }
+        //Удаление тега
         const queryData = await db.query("DELETE from tags WHERE id=$1",[tagId]);
         return queryData.rowCount;
     }
