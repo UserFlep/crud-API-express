@@ -13,12 +13,11 @@ const tagParamsValidator = [
     param("id", "Некорректное поле id. Значением должно быть число").isNumeric()
 ]
 
-
 router.post('/tag',     [authMiddleware, ...tagBodyValidator],      tagController.createTag);
 router.get('/tag/:id',  [authMiddleware, ...tagParamsValidator],    tagController.getOneTag);
 router.get('/tag',      authMiddleware,                             tagController.getAllTags);
 router.put('/tag/:id',  [authMiddleware, ...tagBodyValidator],      tagController.updateTag);
-router.delete('/tag/:id', authMiddleware,                           tagController.deleteTag);
+router.delete('/tag/:id', [authMiddleware, ...tagParamsValidator],  tagController.removeTag);
 
 
 module.exports = router;

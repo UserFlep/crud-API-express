@@ -78,17 +78,13 @@ class TagController {
         }
     }
 
-    async deleteTag(req, res){
+    async removeTag(req, res, next){
         try {
-            const id = req.params.id;
-            const tag = await db.query(
-                'DELETE FROM tags WHERE id=$1'
-                , [id]
-            );
-            res.status(200).json(`Deleted ${tag.rowCount} row(-s)`);
+            const tagId = req.params.id;
+            const removedCount = await tagService.removeTag(tagId);
+            res.status(200).json({removedCount});
         } catch (error) {
-            console.log(error)
-            res.status(400).json({message: "Delete tag error"});
+            next(error)
         }
     }
 }

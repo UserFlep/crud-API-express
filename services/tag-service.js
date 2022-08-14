@@ -92,6 +92,10 @@ class TagService {
         return updatedTag.rows[0];
     }
 
+    async removeTag(tagId){
+        const quryData = await db.query("DELETE from tags WHERE id=$1",[tagId]);
+        return quryData.rowCount;
+    }
 
 }
 
