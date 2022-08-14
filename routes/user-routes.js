@@ -16,7 +16,7 @@ router.post('/logout',  authMiddleware,                     userController.logou
 router.get('/refresh',                                      userController.refresh);
 router.get('/user',     authMiddleware,                     userController.getOneUser);
 router.put('/user',     [authMiddleware, ...userValidator], userController.updateUser);
-router.delete('/user',  authMiddleware,                     userController.removeUser);
+router.delete('/user',  authMiddleware,                     userController.deleteUser);
 
 
 module.exports = router;

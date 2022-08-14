@@ -48,8 +48,8 @@ class UserService {
     }
 
     async logout (refreshToken) {
-        const removedCount = await tokenService.removeToken(refreshToken);
-        return removedCount;
+        const deletedCount = await tokenService.deleteToken(refreshToken);
+        return deletedCount;
     }
 
     async refresh (refreshToken) {
@@ -101,7 +101,7 @@ class UserService {
         return user.rows[0];
     }
 
-    async removeUser (accessToken) {
+    async deleteUser (accessToken) {
         const tokenPayload = tokenService.validateAccessToken(accessToken);
         const queryData = await db.query('DELETE FROM users WHERE uid=$1', [tokenPayload.uid]);
         return queryData.rowCount;

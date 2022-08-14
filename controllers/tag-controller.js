@@ -78,11 +78,11 @@ class TagController {
         }
     }
 
-    async removeTag(req, res, next){
+    async deleteTag(req, res, next){
         try {
             const tagId = req.params.id;
-            const removedCount = await tagService.removeTag(tagId);
-            res.status(200).json({removedCount});
+            const deletedCount = await tagService.deleteTag(tagId);
+            res.status(200).json({deletedCount});
         } catch (error) {
             next(error)
         }

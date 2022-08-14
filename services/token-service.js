@@ -45,7 +45,7 @@ class TokenService {
         return queryData.rows[0].token;
     }
 
-    async removeToken(refreshToken){
+    async deleteToken(refreshToken){
         const queryData = await db.query("DELETE from tokens WHERE token=$1",[refreshToken]);
         return queryData.rowCount;
     }

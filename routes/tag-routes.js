@@ -17,7 +17,7 @@ router.post('/tag',     [authMiddleware, ...tagBodyValidator],      tagControlle
 router.get('/tag/:id',  [authMiddleware, ...tagParamsValidator],    tagController.getOneTag);
 router.get('/tag',      authMiddleware,                             tagController.getAllTags);
 router.put('/tag/:id',  [authMiddleware, ...tagBodyValidator],      tagController.updateTag);
-router.delete('/tag/:id', [authMiddleware, ...tagParamsValidator],  tagController.removeTag);
+router.delete('/tag/:id', [authMiddleware, ...tagParamsValidator],  tagController.deleteTag);
 
 
 module.exports = router;

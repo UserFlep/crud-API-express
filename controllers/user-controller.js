@@ -40,9 +40,9 @@ class UserController {
     async logout (req, res, next){
         try {
             const {refreshToken} = req.cookies;
-            const removedCount = await userService.logout(refreshToken);
+            const deletedCount = await userService.logout(refreshToken);
             res.clearCookie('refreshToken');
-            return res.status(200).json({removedCount});
+            return res.status(200).json({deletedCount});
         } catch (error) {
             //console.log(error);
             next(error)
@@ -90,14 +90,14 @@ class UserController {
         }
     }
     
-    async removeUser(req, res, next){
+    async deleteUser(req, res, next){
         try {
             const {refreshToken} = req.cookies;
             await userService.logout(refreshToken);
             
             const accessToken = req.headers.authorization.split(' ')[1];
-            const removedCount = await userService.removeUser(accessToken);
-            res.status(200).json({removedCount});
+            const deletedCount = await userService.deleteUser(accessToken);
+            res.status(200).json({deletedCount});
 
         } catch (error) {
             next(error);
