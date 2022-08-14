@@ -77,7 +77,7 @@ class UserService {
                 SELECT * FROM user_tags_data 
                 JOIN tags ON tag_id=id
             )
-            SELECT id, name, sort_order FROM tag_data
+            SELECT id, name, "sortOrder" FROM tag_data
         `;
         const tags = await db.query(query,[tokenPayload.uid])
         user.rows[0].tags = tags.rows;

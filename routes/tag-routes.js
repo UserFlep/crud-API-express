@@ -10,7 +10,7 @@ const tagBodyValidator = [
 ]
 
 const tagParamsValidator = [
-    param("id", "Некорректное поле id. Значением должно быть число").isNumeric()
+    param("id", "Некорректно поле id. Значением должно быть число").isNumeric()
 ]
 
 router.post('/tag',     [authMiddleware, ...tagBodyValidator],      tagController.createTag);

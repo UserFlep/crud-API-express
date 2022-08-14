@@ -1,11 +1,11 @@
 const db = require("../db");
-const tagService = require("../services/tag-service");
+const userTagService = require("../services/user-tag-service");
 const ApiError = require("../exceptions/api-error");
 const {validationResult} = require("express-validator");
 
 class TagController {
 
-    async createUserTag(req, res, next){
+    async createUserTags(req, res, next){
         try {
             const errors = validationResult(req);
             if(!errors.isEmpty()){
@@ -13,31 +13,19 @@ class TagController {
             }
 
             const tagData = req.body;
+            console.log("tagData", tagData.tags)
             const accessToken = req.headers.authorization.split(' ')[1];
-            const newTag = await tagService.createTag(accessToken, tagData);
-            res.status(200).json({...newTag});
+
+            const createdUserTags = await userTagService.createUserTags(accessToken, tagData);
+            res.status(200).json(createdUserTags);
         } catch (error) {
             next(error)
         }
         
     }
 
-    async getOneTag(req, res, next){
-        try {
-            const errors = validationResult(req);
-            if(!errors.isEmpty()){
-                return next(ApiError.BadRequest("Ошибка при валидации", errors.array()));
-            }
-            
-            const tagId = req.params.id;
-            const tag = await tagService.getOneTag(tagId);
-            res.status(200).json({...tag});
-        } catch (error) {
-            next(error)
-        }
-    }
 
-    async getAllTags(req, res, next){
+    async getUserTags(req, res, next){
         try{
             const {sortByOrder, sortByName, offset, length} = req.query;
             const filters = {};
@@ -61,24 +49,7 @@ class TagController {
         }
     }
 
-    async updateTag(req, res, next){
-        try {
-            const errors = validationResult(req);
-            if(!errors.isEmpty()){
-                return next(ApiError.BadRequest("Ошибка при валидации", errors.array()));
-            }
-            
-            const tagId = req.params.id;
-            const newTagData = req.body;
-            const accessToken = req.headers.authorization.split(' ')[1];
-            const updatedTagData = await tagService.updateTag(accessToken, tagId, newTagData);
-            res.status(200).json({...updatedTagData});
-        } catch (error) {
-            next(error)
-        }
-    }
-
-    async deleteTag(req, res, next){
+    async deleteUserTag(req, res, next){
         try {
             const tagId = req.params.id;
             const deletedCount = await tagService.deleteTag(tagId);
