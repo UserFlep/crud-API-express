@@ -17,7 +17,7 @@ const tagParamsValidator = [
 router.post('/tag', [authMiddleware, ...tagBodyValidator], tagController.createTag);
 router.get('/tag/:id', [authMiddleware, ...tagParamsValidator], tagController.getOneTag);
 router.get('/tag', authMiddleware, tagController.getAllTags);
-//router.put('/tag/:id', authMiddleware, tagController.updateTag);
+router.put('/tag/:id', [authMiddleware, ...tagBodyValidator], tagController.updateTag);
 //router.delete('/tag/:id', authMiddleware, tagController.deleteTag);
 
 

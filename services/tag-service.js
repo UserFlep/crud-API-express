@@ -39,9 +39,9 @@ class TagService {
 
             ORDER_BY=`ORDER BY ${filters.sortByOrder ? '"sortOrder"':""}${both ? ", ":""}${filters.sortByName ? "name":""}`
         }
-        //console.log(ORDER_BY);
+
         const tags = await db.query(`SELECT creator, name, "sortOrder" FROM tags ${ORDER_BY} LIMIT $1 OFFSET $2`,[LIMIT, OFFSET]);
-        //console.log(tags);
+
         for(let i in tags.rows){
             const creator = await db.query(`SELECT nickname, uid FROM users WHERE uid=$1`,[tags.rows[i].creator]);
             tags.rows[i].creator = creator.rows[0];
@@ -58,7 +58,38 @@ class TagService {
                 quantity: QUANTITY
             }
         }
-        //return tags.rows;
+    }
+
+    async updateTag (accessToken,tagId, tagData) {
+        const {name, sortOrder} = tagData;
+        const tokenPayload = tokenService.validateAccessToken(accessToken);
+
+        const updatingTag = await db.query('SELECT * FROM tags WHERE id=$1',[tagId])
+        //Тег существует
+        if(!updatingTag.rowCount){
+            throw ApiError.BadRequest("Такого тега не существует");
+        }
+        //Тег можно изменить
+        if(updatingTag.rows[0].creator !== tokenPayload.uid){
+            throw ApiError.BadRequest("Только создатель тега может изменять его");
+        }
+
+        const equalTag = await db.query('SELECT * FROM tags WHERE name=$1',[name]);
+        //Новое имя уникально
+        if(equalTag.rowCount) {
+            throw ApiError.BadRequest("Тег с таким названием уже существует");
+        }
+
+        //Обновление тега
+        const updatedTag = await db.query(
+            'UPDATE tags set name=$1, "sortOrder"=$2 WHERE id=$3 RETURNING creator, name, "sortOrder"'
+            , [name, sortOrder, tagId]
+        );
+
+        const creator = await db.query("SELECT nickname, uid FROM users WHERE uid=$1 LIMIT 1",[updatedTag.rows[0].creator])
+        updatedTag.rows[0].creator = creator.rows[0];
+
+        return updatedTag.rows[0];
     }
 
 

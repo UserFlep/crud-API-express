@@ -29,8 +29,8 @@ class TagController {
                 return next(ApiError.BadRequest("Ошибка при валидации", errors.array()));
             }
             
-            const id = req.params.id;
-            const tag = await tagService.getOneTag(id);
+            const tagId = req.params.id;
+            const tag = await tagService.getOneTag(tagId);
             res.status(200).json({...tag});
         } catch (error) {
             next(error)
@@ -61,33 +61,20 @@ class TagController {
         }
     }
 
-    async getTagsByUser(req, res){
+    async updateTag(req, res, next){
         try {
-            const id = req.query.id;
-            const tags = await db.query(
-                'SELECT * FROM tags WHERE creator = $1'
-                , [id]
-            );
-            res.status(200).json(tags.rows);
+            const errors = validationResult(req);
+            if(!errors.isEmpty()){
+                return next(ApiError.BadRequest("Ошибка при валидации", errors.array()));
+            }
+            
+            const tagId = req.params.id;
+            const newTagData = req.body;
+            const accessToken = req.headers.authorization.split(' ')[1];
+            const updatedTagData = await tagService.updateTag(accessToken, tagId, newTagData);
+            res.status(200).json({...updatedTagData});
         } catch (error) {
-            console.log(error)
-            res.status(400).json({message: "Get tags by user error"});
-        }
-    }
-
-    
-
-    async updateTag(req, res){
-        try {
-            const {id, creator, name, sortOrder} = req.body;
-            const updatedTag = await db.query(
-                'UPDATE tags set creator=$1, name=$2, "sortOrder"=$3 WHERE id=$4 RETURNING *'
-                , [creator, name, sortOrder, id]
-            );
-            res.status(200).json(updatedTag.rows[0]);
-        } catch (error) {
-            console.log(error)
-            res.status(400).json({message: "Update tag error"});
+            next(error)
         }
     }
 

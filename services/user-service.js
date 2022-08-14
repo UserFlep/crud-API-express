@@ -87,8 +87,8 @@ class UserService {
     async updateUser (accessToken, newUserData) {
         const {email, password, nickname} = newUserData;
         
-        const candidate = await db.query('SELECT * FROM users WHERE nickname=$1 or email=$2',[nickname,email]);
-        if(candidate.rowCount) {
+        const equalUser = await db.query('SELECT * FROM users WHERE nickname=$1 or email=$2',[nickname,email]);
+        if(equalUser.rowCount) {
             throw ApiError.BadRequest("Пользователь с таким никнеймом или адресом почты уже существует");
         }
         
