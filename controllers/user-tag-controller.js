@@ -24,40 +24,28 @@ class TagController {
         
     }
 
-
-    async getUserTags(req, res, next){
-        try{
-            const {sortByOrder, sortByName, offset, length} = req.query;
-            const filters = {};
-            if(sortByOrder !== undefined){
-                filters.sortByOrder = true;
-            }
-            if(sortByName !== undefined){
-                filters.sortByName = true;
-            }
-            if(offset && !isNaN(offset)){
-                filters.offset = offset;
-            }
-            if(length && !isNaN(length)){
-                filters.limit = length;
-            }
-
-            const data = await tagService.getAllTags(filters);
-            res.status(200).json({...data});
+    async deleteUserTag(req, res, next){
+        try {
+            const tagId = req.params.id;
+            const accessToken = req.headers.authorization.split(' ')[1];
+            const userTags = await userTagService.deleteUserTag(tagId, accessToken);
+            res.status(200).json(userTags);
         } catch (error) {
             next(error)
         }
     }
 
-    async deleteUserTag(req, res, next){
-        try {
-            const tagId = req.params.id;
-            const deletedCount = await tagService.deleteTag(tagId);
-            res.status(200).json({deletedCount});
+
+    async getAllUserTags(req, res, next){
+        try{
+            const accessToken = req.headers.authorization.split(' ')[1];
+            const userTags = await userTagService.getAllUserTags(accessToken);
+            res.status(200).json(userTags);
         } catch (error) {
             next(error)
         }
     }
 }
+    
 
 module.exports = new TagController();

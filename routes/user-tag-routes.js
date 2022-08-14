@@ -21,7 +21,7 @@ userTagsParamsValidator = [
 
 router.post('/user/tag', [...userTagsBodyValidator, authMiddleware], userTagController.createUserTags);
 router.delete('/user/tag/:id', [authMiddleware, ...userTagsParamsValidator], userTagController.deleteUserTag);
-router.get('/user/tag/my', authMiddleware, userTagController.getUserTags);
+router.get('/user/tag/my', authMiddleware, userTagController.getAllUserTags);
 
 
 module.exports = router;
