@@ -26,24 +26,39 @@ class TagService {
         return tag.rows[0];
     }
 
-    async getAllTags(length, offset, sortByOrder, sortByName){
+    async getAllTags(filters={}){
+        const defaultLimit = 10;
+        const defaultOffset = 0;
+
+        const LIMIT = filters.limit ? parseInt(filters.limit, 10) : defaultLimit;
+        const OFFSET = filters.offset ? parseInt(filters.offset, 10) : defaultOffset;
         let ORDER_BY="";
-        const LIMIT = length === undefined ? "" :"LIMIT "+length;
-        const OFFSET = offset === undefined ? "" :"OFFSET "+offset;
-        //console.log(length && "ALL", offset && "0"); 'это успех
-        const sortFields = [];
-        if(sortByOrder!==undefined){
-            sortFields.push('"sortOrder"');
+
+        if(filters.sortByOrder || filters.sortByName){
+            const both = filters.sortByOrder && filters.sortByName;
+
+            ORDER_BY=`ORDER BY ${filters.sortByOrder ? '"sortOrder"':""}${both ? ", ":""}${filters.sortByName ? "name":""}`
         }
-        if(sortByName!==undefined){
-            sortFields.push("name");
+        //console.log(ORDER_BY);
+        const tags = await db.query(`SELECT creator, name, "sortOrder" FROM tags ${ORDER_BY} LIMIT $1 OFFSET $2`,[LIMIT, OFFSET]);
+        //console.log(tags);
+        for(let i in tags.rows){
+            const creator = await db.query(`SELECT nickname, uid FROM users WHERE uid=$1`,[tags.rows[i].creator]);
+            tags.rows[i].creator = creator.rows[0];
         }
-        if(sortFields.length>0){
-            ORDER_BY = "ORDER BY " + sortFields.join(', ');
+        
+        const countData = await db.query(`SELECT COUNT(*)::int FROM tags`);
+        const QUANTITY = countData.rows[0].count;
+
+        return {
+            data: tags.rows,
+            meta: {
+                offset: OFFSET,
+                length: LIMIT,
+                quantity: QUANTITY
+            }
         }
-        //const tags = await db.query(`SELECT * FROM tags LIMIT $1 OFFSET $2`);
-        const tags = await db.query(`SELECT * FROM tags ${ORDER_BY} ${LIMIT} ${OFFSET}`);
-        return tags.rows;
+        //return tags.rows;
     }
 
 

@@ -40,8 +40,22 @@ class TagController {
     async getAllTags(req, res, next){
         try{
             const {sortByOrder, sortByName, offset, length} = req.query;
-            const data = await tagService.getAllTags(length, offset, sortByOrder, sortByName);
-            res.status(200).json({data});
+            const filters = {};
+            if(sortByOrder !== undefined){
+                filters.sortByOrder = true;
+            }
+            if(sortByName !== undefined){
+                filters.sortByName = true;
+            }
+            if(offset && !isNaN(offset)){
+                filters.offset = offset;
+            }
+            if(length && !isNaN(length)){
+                filters.limit = length;
+            }
+
+            const data = await tagService.getAllTags(filters);
+            res.status(200).json({...data});
         } catch (error) {
             next(error)
         }
