@@ -10,13 +10,13 @@ const userValidator = [
     body("password", "Некорректный пароль. Пароль должен содержать 8-100 символов, включая одну цифру, одну заглавную и одну строчную буквы").isStrongPassword({minSymbols: 0}).isLength({max:100}),
 ]
 
-router.post('/signin', userValidator, userController.registration);
-router.post('/login', userController.login);
-router.post('/logout', authMiddleware, userController.logout);
-router.get('/refresh', userController.refresh);
-router.get('/user', authMiddleware, userController.getOneUser);
-router.put('/user', [authMiddleware, ...userValidator], userController.updateUser);
-router.delete('/user', authMiddleware, userController.removeUser);
+router.post('/signin',  userValidator,                      userController.registration);
+router.post('/login',                                       userController.login);
+router.post('/logout',  authMiddleware,                     userController.logout);
+router.get('/refresh',                                      userController.refresh);
+router.get('/user',     authMiddleware,                     userController.getOneUser);
+router.put('/user',     [authMiddleware, ...userValidator], userController.updateUser);
+router.delete('/user',  authMiddleware,                     userController.removeUser);
 
 
 module.exports = router;
