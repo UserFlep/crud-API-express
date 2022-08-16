@@ -4,10 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon index.js",
-    "db:migration": "npm run db migration:run",
-    "db:migration:revert": "npm run db migration:revert",
-    "db:migration:create": "ts-node ./node_modules/.bin/typeorm migration:create -n create-topic-table"
+    "dev": "nodemon index.js"
   },
   "keywords": [],
   "author": "",
@@ -16,6 +13,8 @@
     "bcryptjs": "^2.4.3",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
+    "db-migrate": "^0.11.13",
+    "db-migrate-pg": "^1.2.2",
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
     "express-validator": "^6.14.2",
