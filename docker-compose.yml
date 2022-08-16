@@ -1,0 +1,34 @@
+version: '3.0'
+
+services:
+  crud_api_jwt:
+    container_name: crud_api_jwt
+    build: 
+      context: .
+    env_file:
+      - .env
+    volumes:
+      - .:app
+      - /app/node_modules
+    ports:
+      - 4000:4000
+    command: npm run dev
+    depends_on:
+      - postgres
+    restart: always
+
+  postgres:
+    container_name: postgres
+    image: postgres:14.4
+    env_file:
+      - .env
+    environment:
+      PG_DATA: /var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    volumes:
+      - pgdata: /var/lib/postgresql/data
+    restart: always
+
+volumes:
+  pgdata:
