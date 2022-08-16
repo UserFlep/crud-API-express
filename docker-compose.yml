@@ -1,5 +1,7 @@
 version: '3.0'
 
+#Нужно проинициализировать бд файлом ./database.sql
+
 services:
   crud_api_jwt:
     container_name: crud_api_jwt
