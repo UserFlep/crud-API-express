@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon index.js"
+    "dev": "nodemon index.js",
+    "prod": "db-migrate db:create 'crud_db'; db-migrate up initialize; nodemon index.js;"
   },
   "keywords": [],
   "author": "",
