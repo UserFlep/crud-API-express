@@ -4,7 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon index.js"
+    "dev": "nodemon index.js",
+    "db:migration": "npm run db migration:run",
+    "db:migration:revert": "npm run db migration:revert",
+    "db:migration:create": "ts-node ./node_modules/.bin/typeorm migration:create -n create-topic-table"
   },
   "keywords": [],
   "author": "",
