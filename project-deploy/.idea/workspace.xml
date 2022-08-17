@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="880f56df-c48b-4085-84e2-9bbdc7b67c81" name="Changes" comment="heroku localhost">
+      <change beforePath="$PROJECT_DIR$/../.env" beforeDir="false" afterPath="$PROJECT_DIR$/../.env" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../index.js" beforeDir="false" afterPath="$PROJECT_DIR$/../index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../project.zip" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../project/Dockerfile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../project/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../project/controllers/tag-controller.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../project/controllers/user-controller.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../project/controllers/user-tag-controller.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../project/database.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../project/database.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../project/db.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../project/docker-compose.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../project/exceptions/api-error.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../project/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../project/middleware/auth-middleware.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../project/middleware/error-middleware.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../project/migrations/20220816165447-initialize.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../project/migrations/sqls/20220816165447-initialize-down.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../project/migrations/sqls/20220816165447-initialize-up.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../project/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../project/pnpm-lock.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../project/postman/CRUD_tag.postman_collection.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../project/postman/CRUD_user.postman_collection.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../project/postman/CRUD_user_tags.postman_collection.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../project/postman/host" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../project/routes/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../project/routes/tag-routes.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../project/routes/user-routes.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../project/routes/user-tag-routes.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../project/services/tag-service.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../project/services/token-service.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../project/services/user-service.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../project/services/user-tag-service.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../project/wait-for-postgres.sh" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2DRaYbftNl2XOGvzONIrVJDWhCD" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "/home/acer/Documents/project-deploy",
+    "nodejs_package_manager_path": "pnpm",
+    "settings.editor.selected.configurable": "preferences.general",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RunManager">
+    <configuration name="dev" type="js.build_tools.npm" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="dev" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="880f56df-c48b-4085-84e2-9bbdc7b67c81" name="Changes" comment="" />
+      <created>1660664400427</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1660664400427</updated>
+      <workItem from="1660664403700" duration="7784000" />
+      <workItem from="1660678909194" duration="4816000" />
+      <workItem from="1660684860563" duration="1260000" />
+      <workItem from="1660718752745" duration="9946000" />
+      <workItem from="1660740273903" duration="2711000" />
+      <workItem from="1660744854186" duration="37000" />
+    </task>
+    <task id="LOCAL-00001" summary="webstorm">
+      <created>1660664592074</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1660664592074</updated>
+    </task>
+    <task id="LOCAL-00002" summary="webstorm2">
+      <created>1660665864692</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1660665864692</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Добавлено создание бд">
+      <created>1660666338683</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1660666338683</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Добавлен комментарий об инициализации бд">
+      <created>1660666355014</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1660666355014</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Добавлена инструкция">
+      <created>1660667743100</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1660667743100</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Добавлены postman запросы">
+      <created>1660667773169</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1660667773169</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Добавлены  скрипты миграций">
+      <created>1660668172244</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1660668172244</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Добавлены миграции">
+      <created>1660669983908</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1660669983908</updated>
+    </task>
+    <task id="LOCAL-00009" summary="В инструкцию добавлены миграции">
+      <created>1660670805785</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1660670805785</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Настроил работу docker-compose.yml">
+      <created>1660686108577</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1660686108577</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Перенастроил работу docker-compose.yml">
+      <created>1660732329539</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1660732329542</updated>
+    </task>
+    <task id="LOCAL-00012" summary="heroku">
+      <created>1660740529916</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1660740529916</updated>
+    </task>
+    <task id="LOCAL-00013" summary="heroku localhost">
+      <created>1660740594195</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1660740594195</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="webstorm" />
+    <MESSAGE value="webstorm2" />
+    <MESSAGE value="Добавлено создание бд" />
+    <MESSAGE value="Добавлен комментарий об инициализации бд" />
+    <MESSAGE value="Добавлена инструкция" />
+    <MESSAGE value="Добавлены postman запросы" />
+    <MESSAGE value="Добавлены  скрипты миграций" />
+    <MESSAGE value="Добавлены миграции" />
+    <MESSAGE value="В инструкцию добавлены миграции" />
+    <MESSAGE value="Настроил работу docker-compose.yml" />
+    <MESSAGE value="Перенастроил работу docker-compose.yml" />
+    <MESSAGE value="heroku" />
+    <MESSAGE value="heroku localhost" />
+    <option name="LAST_COMMIT_MESSAGE" value="heroku localhost" />
+  </component>
+</project>
