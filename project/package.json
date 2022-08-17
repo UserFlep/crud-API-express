@@ -4,7 +4,6 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "db-migrate db:create 'crud_db'; db-migrate up initialize; nodemon index.js; ",
     "dev": "nodemon index.js",
     "prod": "db-migrate up initialize; nodemon index.js; "
   },

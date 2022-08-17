@@ -1,0 +1,35 @@
+version: '3.0'
+
+#Нужно проинициализировать бд файлом ./database.sql
+
+services:
+  postgres:
+    container_name: postgres
+    image: postgres:14.4
+    env_file:
+      - .env
+    environment:
+      PG_DATA: /var/lib/postgresql/data
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - 5000:5432
+    restart: always
+
+  crud_api_jwt:
+    container_name: crud_api_jwt
+    build: 
+      context: .
+    env_file:
+      - .env
+    volumes:
+      - .:/app
+      - /app/node_modules
+    ports:
+      - 4000:4000
+    depends_on:
+      - postgres
+    command: ["bash", "./wait-for-postgres.sh", "npm", "run", "prod"]
+    restart: always
+volumes:
+      pgdata:
