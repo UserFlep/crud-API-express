@@ -1,1 +1,3 @@
-{{host}} = http://localhost:4000/api
+{{host}} = http://localhost:4000/api - если запущено локально
+
+{{host}} = https://immense-mountain-29781.herokuapp.com/api - задеплоено
